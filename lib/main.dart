@@ -3,14 +3,28 @@ import 'package:flutter/widgets.dart';
 import 'package:fluttercamp/core/widgets/custom_button.dart';
 import 'package:fluttercamp/core/widgets/icon_sign_in_button.dart';
 import 'package:fluttercamp/core/widgets/sign_in_button.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fluttercamp/view/home_page/home_page.dart';
+import 'package:fluttercamp/view/sign_in_page/sign_in_page.dart';
+import 'package:fluttercamp/view/sign_with_email/sign_with_email.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+
   runApp(MainWidget());
 }
 
-class MainWidget extends StatelessWidget {
+class MainWidget extends StatefulWidget {
   const MainWidget({Key? key}) : super(key: key);
 
+  @override
+  _MainWidgetState createState() => _MainWidgetState();
+}
+
+class _MainWidgetState extends State<MainWidget> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -28,66 +42,20 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  User? _user;
+  _isSignIn(User? user) {
+    setState(() {
+      _user = user;
+      print(_user?.uid);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: Container(
-      alignment: Alignment.center,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Text(
-            'Giriş',
-            style: Theme.of(context)
-                .textTheme
-                .headline4!
-                .copyWith(fontWeight: FontWeight.bold),
-          ),
-          SizedBox(
-            height: 16,
-          ),
-          IconSignButton(
-              imagePath: 'assets/images/google-logo.png',
-              onPressed: () {},
-              text: 'Google ile giriş yap!',
-              buttonColor: Color(0xFFFFFFFF),
-              textColor: Colors.black54,
-              width: MediaQuery.of(context).size.width * .9),
-          SizedBox(
-            height: 8,
-          ),
-          IconSignButton(
-              imagePath: 'assets/images/facebook-logo.png',
-              onPressed: () {},
-              text: 'Facebook ile giriş yap!',
-              buttonColor: Color(0xFF313389),
-              textColor: Colors.white,
-              width: MediaQuery.of(context).size.width * .9),
-          SizedBox(
-            height: 8,
-          ),
-          SignInButton(
-              onPressed: () {},
-              text: 'Email ile giriş yap!',
-              buttonColor: Color(0xFF157463),
-              textColor: Colors.white,
-              width: MediaQuery.of(context).size.width * .9),
-          SizedBox(
-            height: 8,
-          ),
-          Text('ya da'),
-          SizedBox(
-            height: 8,
-          ),
-          SignInButton(
-              onPressed: () {},
-              text: 'Anonim olarak devam et!',
-              buttonColor: Color(0xFFcbee68),
-              textColor: Colors.black54,
-              width: MediaQuery.of(context).size.width * .9),
-        ],
-      ),
-    ));
+    if (_user == null) {
+      return SigInPage(callBack: (_user) => _isSignIn(_user));
+    } else {
+      return HomePageWidget(callback: (_user) => _isSignIn(_user));
+    }
   }
 }

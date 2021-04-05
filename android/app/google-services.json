@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "591115378519",
+    "project_id": "fluttercamp-6af06",
+    "storage_bucket": "fluttercamp-6af06.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:591115378519:android:38c363ab0f5cacfc98a812",
+        "android_client_info": {
+          "package_name": "com.bilisimtoplulugu.fluttercamp.fluttercamp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "591115378519-dm4jbtek5oeoombehglcl3b00riho1vf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAvykHheX_OdIhWgNEhKf7uUE1WkGP5pwY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "591115378519-dm4jbtek5oeoombehglcl3b00riho1vf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
